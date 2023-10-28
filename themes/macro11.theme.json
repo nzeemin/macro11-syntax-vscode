@@ -5,15 +5,14 @@
 			"name": "Comment",
 			"scope": "comment",
 			"settings": {
-				"fontStyle": "italic",
-				"foreground": "#609080"
+				"foreground": "#6A9955"
 			}
 		},
         {
-            "name": "Label",
+            "name": "Label Global",
             "scope": "entity.name.label.global",
             "settings": {
-                "foreground": "#c0c080",
+                "foreground": "#80c0d0",
                 "fontStyle": "bold"
             }
         },
@@ -21,21 +20,21 @@
             "name": "Label",
             "scope": "entity.name.label",
             "settings": {
-                "foreground": "#80c0c0"
+                "foreground": "#60c0d0"
             }
         },
         {
 			"name": "Directive",
 			"scope": "entity.name.directive",
 			"settings": {
-				"foreground": "#b040b0"
+				"foreground": "#b060b0"
 			}
 		},
         {
 			"name": "Parameters",
 			"scope": "entity.name.parameters",
 			"settings": {
-				"foreground": "#909090"
+				"foreground": "#a0a0a0"
 			}
 		},
         {
@@ -46,7 +45,7 @@
 			}
 		},
         {
-			"name": "Keyword",
+			"name": "Keyword Control",
 			"scope": "keyword.control.macro11",
 			"settings": {
 				"foreground": "#7dc0a8",
@@ -54,10 +53,24 @@
 			}
 		},
         {
+			"name": "Keyword Operator",
+			"scope": "keyword.operator.macro11",
+			"settings": {
+				"foreground": "#a0a080"
+			}
+		},
+        {
 			"name": "Instruction",
 			"scope": "keyword.assembly.instruction",
 			"settings": {
-				"foreground": "#909060"
+				"foreground": "#a0a060"
+			}
+		},
+        {
+			"name": "String",
+			"scope": "entity.other.string",
+			"settings": {
+				"foreground": "#a0a0a0"
 			}
 		}
     ]

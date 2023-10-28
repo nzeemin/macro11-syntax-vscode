@@ -4,7 +4,7 @@
 	"scopeName": "source.macro11",
 	"patterns": [
 		{
-			"include": "#comments"
+			"include": "#LineComment"
 		},
 		{
 			"include": "#LineWithAGlobalLabel"
@@ -14,9 +14,23 @@
 		},
 		{
 			"include": "#LineWithoutALabel"
+		},
+		{
+			"include": "#LineDirective"
+		},
+		{
+			"include": "#LineAssignment"
 		}
 	],
 	"repository": {
+		"LineComment": {
+			"match": "^\\s*(\\;.*)$",
+			"captures": {
+				"1": {
+					"name": "comment"
+				}
+			}
+		},
 		"LineWithAGlobalLabel": {
 			"match": "^([A-za-z0-9\\$]+)\\:\\:\\s*(.*)$",
 			"captures": {
@@ -30,6 +44,9 @@
 						},
 						{
 							"include": "#AssemblyLine1"
+						},
+						{
+							"include": "#AssemblyLineStr"
 						},
 						{
 							"include": "#AssemblyLine2"
@@ -53,6 +70,9 @@
 							"include": "#AssemblyLine1"
 						},
 						{
+							"include": "#AssemblyLineStr"
+						},
+						{
 							"include": "#AssemblyLine2"
 						}
 					]
@@ -69,6 +89,45 @@
 						},
 						{
 							"include": "#AssemblyLine1"
+						},
+						{
+							"include": "#AssemblyLineStr"
+						},
+						{
+							"include": "#AssemblyLine2"
+						}
+					]
+				}
+			}
+		},
+		"LineAssignment": {
+			"match": "^([A-Za-z\\$][A-Za-z0-9\\$]*)\\s*=\\s*([^;]*)\\s*(\\;.*)?$",
+			"captures": {
+				"1": {
+					"name": "entity.name.label"
+				},
+				"2": {
+					"patterns": [
+						{
+							"include": "#ParameterSingle"
+						}
+					]
+				},
+				"3": {
+					"name": "comment"
+				}
+			}
+		},
+		"LineDirective": {
+			"match": "^(\\..*)$",
+			"captures": {
+				"1": {
+					"patterns": [
+						{
+							"include": "#AssemblyLine1"
+						},
+						{
+							"include": "#AssemblyLineStr"
 						},
 						{
 							"include": "#AssemblyLine2"
@@ -92,7 +151,7 @@
 					"name": "entity.name.directive",
 					"patterns": [
 						{
-							"include": "#Keyword"
+							"include": "#Directive"
 						},
 						{
 							"include": "#Instruction"
@@ -111,7 +170,7 @@
 					"name": "entity.name.directive",
 					"patterns": [
 						{
-							"include": "#Keyword"
+							"include": "#Directive"
 						},
 						{
 							"include": "#Instruction"
@@ -128,6 +187,20 @@
 							"include": "#ParameterSingle"
 						}
 					]
+				},
+				"3": {
+					"name": "comment"
+				}
+			}
+		},
+		"AssemblyLineStr": {
+			"match": "\\s*(\\.ASCII|\\.ASCIZ|\\.RAD50|\\.INCLUDE)\\s+([^;]*)\\s*(\\;.*)?$",
+			"captures": {
+				"1": {
+					"name": "keyword.operator.macro11"
+				},
+				"2": {
+					"name": "entity.other.string"
 				},
 				"3": {
 					"name": "comment"
@@ -160,7 +233,7 @@
 				}
 			}
 		},
-		"Keyword": {
+		"Directive": {
 			"patterns": [
 				{
 					"name": "keyword.control.macro11",
@@ -168,11 +241,11 @@
 				},
 				{
 					"name": "keyword.control.macro11",
-					"match": "\\.(BYTE|WORD|ASCII|ASCIZ|RAD50|PACKED|RADIX|EVEN|ODD|BLKB|BLKW|LIMIT)\\b"
+					"match": "\\.(PSECT|ASECT|CSECT|SAVE|RESTORE|GLOBL|WEAK|LIMIT|END)\\b"
 				},
 				{
-					"name": "keyword.control.macro11",
-					"match": "\\.(END|PSECT|ASECT|CSECT|SAVE|RESTORE|GLOBL|WEAK)\\b"
+					"name": "keyword.operator.macro11",
+					"match": "\\.(BYTE|WORD|RAD50|PACKED|RADIX|EVEN|ODD|BLKB|BLKW)\\b"
 				},
 				{
 					"name": "keyword.control.macro11",
@@ -184,11 +257,11 @@
 				},
 				{
 					"name": "keyword.control.macro11",
-					"match": "\\.(MCALL|MDELETE)\\b"
+					"match": "\\.(MCALL|MDELETE|ERROR)\\b"
 				},
 				{
 					"name": "keyword.control.macro11",
-					"match": "\\.(ERROR|PRINT)\\b"
+					"match": "\\.(IF|IFF|IFT|IFTF|ENDC|IIF)\\b"
 				}
 			]
 		},
@@ -223,16 +296,6 @@
 					"match": "\\b(START|$RUN$|STEP|$STEP$|RSEL|$MFSL$|MFUS|$MFPM$|RCPC|$MFPC$|RCPS|$MFPS$|MTUS|$MTPM$|WCPC|$MTPC$|WCPS|$MTPS$)\\b"
 				}
 			]
-		},
-		"comments": {
-			"patterns": [
-				{
-					"begin": ";",
-					"end": "\\n",
-					"name": "comment.line.macro11"
-				}
-			]
-		},
-		"strings": {}
+		}
 	}
 }
