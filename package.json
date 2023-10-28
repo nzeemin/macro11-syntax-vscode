@@ -1,0 +1,30 @@
+{
+  "name": "macro11-syntax-vscode",
+  "displayName": "macro11-syntax-vscode",
+  "description": "MACRO11 syntax highlighling for VSCode",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.83.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "macro11",
+      "aliases": ["MACRO11", "macro11"],
+      "extensions": [".MAC",".INC"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "macro11",
+      "scopeName": "source.macro11",
+      "path": "./syntaxes/macro11.tmLanguage.json"
+    }],
+    "themes": [{
+      "uiTheme": "vs-dark",
+      "label": "MACRO11 default",
+      "path": "./themes/macro11.theme.json"
+    }]
+  }
+}

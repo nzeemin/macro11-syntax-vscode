@@ -1,0 +1,238 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "MACRO11",
+	"scopeName": "source.macro11",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#LineWithAGlobalLabel"
+		},
+		{
+			"include": "#LineWithALabel"
+		},
+		{
+			"include": "#LineWithoutALabel"
+		}
+	],
+	"repository": {
+		"LineWithAGlobalLabel": {
+			"match": "^([A-za-z0-9\\$]+)\\:\\:\\s*(.*)$",
+			"captures": {
+				"1": {
+					"name": "entity.name.label.global"
+				},
+				"2": {
+					"patterns": [
+						{
+							"include": "#AssemblyLineComment"
+						},
+						{
+							"include": "#AssemblyLine1"
+						},
+						{
+							"include": "#AssemblyLine2"
+						}
+					]
+				}
+			}
+		},
+		"LineWithALabel": {
+			"match": "^([A-za-z0-9\\$]*)\\:\\s*(.*)$",
+			"captures": {
+				"1": {
+					"name": "entity.name.label"
+				},
+				"2": {
+					"patterns": [
+						{
+							"include": "#AssemblyLineComment"
+						},
+						{
+							"include": "#AssemblyLine1"
+						},
+						{
+							"include": "#AssemblyLine2"
+						}
+					]
+				}
+			}
+		},
+		"LineWithoutALabel": {
+			"match": "^\\s+(.*)$",
+			"captures": {
+				"1": {
+					"patterns": [
+						{
+							"include": "#AssemblyLineComment"
+						},
+						{
+							"include": "#AssemblyLine1"
+						},
+						{
+							"include": "#AssemblyLine2"
+						}
+					]
+				}
+			}
+		},
+		"AssemblyLineComment": {
+			"match": "\\s*(\\;.*)?$",
+			"captures": {
+				"1": {
+					"name": "comment"
+				}
+			}
+		},
+		"AssemblyLine1": {
+			"match": "\\s*([A-Za-z\\$\\.][A-Za-z0-9\\$\\.]+)\\s*(\\;.*)?$",
+			"captures": {
+				"1": {
+					"name": "entity.name.directive",
+					"patterns": [
+						{
+							"include": "#Keyword"
+						},
+						{
+							"include": "#Instruction"
+						}
+					]
+				},
+				"2": {
+					"name": "comment"
+				}
+			}
+		},
+		"AssemblyLine2": {
+			"match": "\\s*([A-Za-z\\$\\.][A-Za-z0-9\\$\\.]+)\\s+([^;]*)\\s*(\\;.*)?$",
+			"captures": {
+				"1": {
+					"name": "entity.name.directive",
+					"patterns": [
+						{
+							"include": "#Keyword"
+						},
+						{
+							"include": "#Instruction"
+						}
+					]
+				},
+				"2": {
+					"name": "entity.name.parameters",
+					"patterns": [
+						{
+							"include": "#ParameterList"
+						},
+						{
+							"include": "#ParameterSingle"
+						}
+					]
+				},
+				"3": {
+					"name": "comment"
+				}
+			}
+		},
+		"ParameterList": {
+			"match": "\\s*([^,]+)\\s*,\\s*(.*)",
+			"captures": {
+				"1": {
+					"name": "entity.name.parameter"
+				},
+				"2": {
+					"patterns": [
+						{
+							"include": "#ParameterList"
+						},
+						{
+							"include": "#ParameterSingle"
+						}
+					]
+				}
+			}
+		},
+		"ParameterSingle": {
+			"match": "\\s*([^,]+)\\s*",
+			"captures": {
+				"1": {
+					"name": "entity.name.parameter"
+				}
+			}
+		},
+		"Keyword": {
+			"patterns": [
+				{
+					"name": "keyword.control.macro11",
+					"match": "\\.(LIST|NLIST|TITLE|SBTTL|IDENT|PAGE|REM|ENABL|DSABL)\\b"
+				},
+				{
+					"name": "keyword.control.macro11",
+					"match": "\\.(BYTE|WORD|ASCII|ASCIZ|RAD50|PACKED|RADIX|EVEN|ODD|BLKB|BLKW|LIMIT)\\b"
+				},
+				{
+					"name": "keyword.control.macro11",
+					"match": "\\.(END|PSECT|ASECT|CSECT|SAVE|RESTORE|GLOBL|WEAK)\\b"
+				},
+				{
+					"name": "keyword.control.macro11",
+					"match": "\\.(LIBRARY|INCLUDE)\\s"
+				},
+				{
+					"name": "keyword.control.macro11",
+					"match": "\\.(MACRO|ENDM|MEXIT|NARG|NCHR|NTYPE|IRP|IRPC|REPT|ENDR)\\b"
+				},
+				{
+					"name": "keyword.control.macro11",
+					"match": "\\.(MCALL|MDELETE)\\b"
+				},
+				{
+					"name": "keyword.control.macro11",
+					"match": "\\.(ERROR|PRINT)\\b"
+				}
+			]
+		},
+		"Instruction": {
+			"patterns": [
+				{
+					"name": "keyword.assembly.instruction",
+					"match": "\\b(CLR|CLRB|COM|COMB|INC|INCB|DEC|DECB|NEG|NEGB|TST|TSTB|ASR|ASRB|ASL|ASLB|ROR|RORB|ROL|ROLB|ADC|ADCB|SBC|SBCB|SXT|SWAB|MFPS|MTPS|MOV|MOVB|CMP|CMPB|ADD|SUB|BIT|BITB|BIC|BICB|BIS|BISB|XOR)\\b"
+				},
+				{
+					"name": "keyword.assembly.instruction",
+					"match": "\\b(NOP|CLC|CLV|CLZ|CLN|CCC|SEC|SEV|SEN|SCC)\\b"
+				},
+				{
+					"name": "keyword.assembly.instruction",
+					"match": "\\b(BR|BNE|BEQ|BPL|BMI|BVC|BVS|BCC|BHIS|BCS|BLO|BGE|BLT|BGT|BLE|BHI|BLOS|JMP|JSR|CALL|RTS|RETURN|MARK|SOB)\\b"
+				},
+				{
+					"name": "keyword.assembly.instruction",
+					"match": "\\b(EMT|TRAP|IOT|BPT|RTI|RTT|HALT|WAIT|RESET)\\b"
+				},
+				{
+					"name": "keyword.assembly.instruction",
+					"match": "\\b(MUL|DIV|ASH|ASHC)\\b"
+				},
+				{
+					"name": "keyword.assembly.instruction",
+					"match": "\\b(FADD|FSUB|FMUL|FDIV)\\b"
+				},
+				{
+					"name": "keyword.assembly.instruction",
+					"match": "\\b(START|$RUN$|STEP|$STEP$|RSEL|$MFSL$|MFUS|$MFPM$|RCPC|$MFPC$|RCPS|$MFPS$|MTUS|$MTPM$|WCPC|$MTPC$|WCPS|$MTPS$)\\b"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"begin": ";",
+					"end": "\\n",
+					"name": "comment.line.macro11"
+				}
+			]
+		},
+		"strings": {}
+	}
+}

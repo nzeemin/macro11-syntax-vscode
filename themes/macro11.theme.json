@@ -1,0 +1,64 @@
+{
+    "name": "MACRO11 default",
+    "tokenColors": [
+        {
+			"name": "Comment",
+			"scope": "comment",
+			"settings": {
+				"fontStyle": "italic",
+				"foreground": "#609080"
+			}
+		},
+        {
+            "name": "Label",
+            "scope": "entity.name.label.global",
+            "settings": {
+                "foreground": "#c0c080",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "Label",
+            "scope": "entity.name.label",
+            "settings": {
+                "foreground": "#80c0c0"
+            }
+        },
+        {
+			"name": "Directive",
+			"scope": "entity.name.directive",
+			"settings": {
+				"foreground": "#b040b0"
+			}
+		},
+        {
+			"name": "Parameters",
+			"scope": "entity.name.parameters",
+			"settings": {
+				"foreground": "#909090"
+			}
+		},
+        {
+			"name": "Parameter",
+			"scope": "entity.name.parameter",
+			"settings": {
+				"foreground": "#9080a0"
+			}
+		},
+        {
+			"name": "Keyword",
+			"scope": "keyword.control.macro11",
+			"settings": {
+				"foreground": "#7dc0a8",
+				"fontStyle": "bold"
+			}
+		},
+        {
+			"name": "Instruction",
+			"scope": "keyword.assembly.instruction",
+			"settings": {
+				"foreground": "#909060"
+			}
+		}
+    ]
+}
